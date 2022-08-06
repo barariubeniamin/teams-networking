@@ -10,13 +10,10 @@ function getTeamHTML(team) {
     <td>x e</td>
   </tr>`;
 }
-
+// transforma in HTML
 function displayTeams(teams) {
-  var teamsHTML = teams.map(function (team) {
-    console.info(team);
-    return getTeamHTML(team);
-  });
-  console.warn("teamsHTML", teamsHTML);
+  // pt a transforma ceva in altceva
+  var teamsHTML = teams.map(getTeamHTML);
 
   // afisare
   document.querySelector("table tbody").innerHTML = teamsHTML.join("");
