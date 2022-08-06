@@ -12,14 +12,14 @@ function getTeamHTML(team) {
 }
 
 function displayTeams(teams) {
-  // transforma in html
-  var teamsHTML = "";
-  teams.forEach(function (team) {
+  var teamsHTML = teams.map(function (team) {
     console.info(team);
-    teamsHTML += getTeamHTML(team);
+    return getTeamHTML(team);
   });
+  console.warn("teamsHTML", teamsHTML);
+
   // afisare
-  document.querySelector("table tbody").innerHTML = teamsHTML;
+  document.querySelector("table tbody").innerHTML = teamsHTML.join("");
 }
 
 function loadTeams() {
