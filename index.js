@@ -31,6 +31,10 @@ function loadTeams() {
     });
 }
 
+function $(selector) {
+  return document.querySelector(selector);
+}
+
 function submitForm(e) {
   e.preventDefault();
   const promotion = $("input[name=promotion]").value;
