@@ -1,13 +1,31 @@
-body {
-  background-color: rgb(145, 202, 241);
+table,
+th,
+td {
+  border: 1px solid;
 }
+
 table {
   width: 100%;
+  border-collapse: collapse;
 }
-h1 {
-  color: rgb(6, 1, 10);
+
+td {
   text-align: center;
 }
 
-#search {
+td,
+th {
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background-color: #bcdfa5;
+}
+
+th {
+  background-color: #bcdfa5;
+}
+
+tfoot {
+  background-color: #d8dbd6;
 }
