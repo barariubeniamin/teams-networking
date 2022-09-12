@@ -31,6 +31,17 @@ function loadTeams() {
     });
 }
 
+function createTeamRequest(team) {
+  fetch("http://localhost:3000/teams-json/create", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(team)
+});
+
+}
+
 function $(selector) {
   return document.querySelector(selector);
 }
@@ -51,7 +62,8 @@ function submitForm(e) {
     url: url,
   };
 
-  console.warn("submit", JSON.stringify(team));
+  createTeamRequest(team);
+
 }
 
 function initEvents() {
