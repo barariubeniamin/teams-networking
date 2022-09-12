@@ -24,7 +24,7 @@ function displayTeams(teams) {
 }
 
 function loadTeams() {
-  fetch("data/teams.json")
+  fetch("http://localhost:3000/teams-json")
     .then((r) => r.json())
     .then((teams) => {
       displayTeams(teams);
@@ -34,6 +34,8 @@ function loadTeams() {
 function $(selector) {
   return document.querySelector(selector);
 }
+
+function.createTeamRequest
 
 function submitForm(e) {
   e.preventDefault();
