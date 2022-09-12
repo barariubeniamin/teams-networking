@@ -1,5 +1,5 @@
 body {
-  background-color: #8cbfdb;
+  background-color: #98c8e3;
 }
 
 table,
@@ -20,10 +20,6 @@ td {
 td,
 th {
   padding: 10px;
-}
-
-tr:nth-child(even) {
-  background-color: #8cbfdb;
 }
 
 th {
