@@ -1,52 +1,37 @@
-function $(selector) {
-  return document.querySelector(selector);
-}
-
-function getTeamHTML(team) {
+function getTeamHtml(team) {
   return `
-  <tr>
-    <td>${team.promotion}</td>
-    <td>${team.members}</td>
-    <td>${team.name}</td>
-    <td> 
-      <a href="${team.url}">bbeni</a>
-    </td>
-    <td>x e</td>
-  </tr>`;
+    <tr>
+      <td>${team.promotion}</td> 
+      <td>${team.members}</td> 
+      <td>${team.name}</td>  
+      <td> 
+        <a href ="${team.url}">open</a> 
+      </td>
+      <td>
+          <a href="#">delete</a>
+          <a href="#">update</a>
+      </td>
+    </tr>`;
 }
-// transforma in HTML
-function displayTeams(teams) {
-  // pt a transforma ceva in altceva
-  const teamsHTML = teams.map(getTeamHTML);
 
-  // afisare
-  document.querySelector("table tbody").innerHTML = teamsHTML.join("");
+function displayTeams(teams) {
+  var teamsHtml = teams.map(function (team) {
+    return getTeamHtml(team);
+  });
+  document.querySelector("table tbody").innerHTML = teamsHtml.join("");
 }
 
 function loadTeams() {
-  fetch("http://localhost:3000/teams-json")
+  fetch("./data/teams.json")
     .then((r) => r.json())
     .then((teams) => {
       displayTeams(teams);
     });
 }
 
-function createTeamRequest(team) {
-  fetch("http://localhost:3000/teams-json/create", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(team)
-});
-
-}
-
 function $(selector) {
   return document.querySelector(selector);
 }
-
-function.createTeamRequest
 
 function submitForm(e) {
   e.preventDefault();
@@ -55,15 +40,14 @@ function submitForm(e) {
   const name = $("input[name=name]").value;
   const url = $("input[name=url]").value;
 
-  const team = {
+  var team = {
     promotion: promotion,
     members: members,
     name: name,
     url: url,
   };
 
-  createTeamRequest(team);
-
+  console.warn("submit", JSON.stringify(team));
 }
 
 function initEvents() {
