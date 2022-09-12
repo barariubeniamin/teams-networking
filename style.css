@@ -19,11 +19,11 @@ th {
 }
 
 tr:nth-child(even) {
-  background-color: #bcdfa5;
+  background-color: #ebf0f2;
 }
 
 th {
-  background-color: #bcdfa5;
+  background-color: #8cbfdb;
 }
 
 tfoot {
