@@ -1,68 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style.css" />
     <title>Teams Networking</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <h1>Teams Networking</h1>
-    <div id="search">
-      <input type="search" />
-      <button type="submit">search</button>
-    </div>
-    <br />
+    <header>
+      <h1>Teams Networking</h1>
+    </header>
 
-    <form action="" method="post" id="editForm">
-      <table border="1">
-        <thead>
-          <tr>
-            <td>Group</td>
-            <td>Members</td>
-            <td>Project Name</td>
-            <td>Project URL</td>
-          </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
-          <tr>
-            <td>
-              <input
-                type="text"
-                placeholder="Enter Group"
-                name="promotion"
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Enter Members"
-                name="members"
-                required
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Enter Name"
-                name="name"
-                required
-              />
-            </td>
-            <td>
-              <input type="text" placeholder="Enter URL" name="url" required />
-            </td>
-            <td>
-              <button type="submit">💾</button>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </form>
+    <section>
+      <div style="margin-bottom: 5px">
+        <input type="search" id="search" placeholder="Search" /><label
+          for="search"
+          >&#128270;</label
+        >
+      </div>
+      <form id="editForm">
+        <table id="list">
+          <colgroup>
+            <col span="1" style="width: 125px" />
+            <col span="1" />
+            <col span="1" />
+            <col span="1" style="width: 300px" />
+            <col span="1" style="width: 80px" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Group</th>
+              <th>Members</th>
+              <th>Project Name</th>
+              <th>Project URL</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot>
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  required
+                  name="promotion"
+                  placeholder="Enter group"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  required
+                  name="members"
+                  placeholder="Enter members"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  required
+                  name="name"
+                  placeholder="Enter project name"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  required
+                  name="url"
+                  placeholder="project URL"
+                />
+              </td>
+              <td>
+                <button type="submit">💾</button>
+                <button type="reset">✖</button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </form>
+    </section>
 
-    <script src="/index.js"></script>
+    <footer>
+      <a href="https://github.com/nmatei/node-api" target="_blank">API Docs</a>
+      |
+      <a href="https://github.com/nmatei/teams-networking" target="_blank"
+        >Source Code</a
+      >
+    </footer>
+    <script src="functions.js"></script>
   </body>
 </html>
