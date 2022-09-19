@@ -12,6 +12,15 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
+table input {
+  
+}
+#editForm tfoot input: { [type="text"]
+  width: 100%;
+}
+input:not([type="image" i]) {
+  box-sizing: border-box;
+}
 
 td {
   text-align: center;
