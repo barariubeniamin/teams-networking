@@ -2,37 +2,37 @@ function $(selector) {
   return document.querySelector(selector);
 }
 
-function $$(selector) {
-  return document.querySelectorAll(selector);
+function getTeamHTML(team) {
+  return `
+  <tr>
+    <td>${team.promotion}</td>
+    <td>${team.members}</td>
+    <td>${team.name}</td>
+    <td>
+      <a href="${team.url}" target="_blank">open</a>
+    </td>
+    <td><a href="#" data-id="${team.id}" class="delete-btn">✖ 
+    </a>
+    <a href="#" data-id="${team.id}" class="edit-btn">&#9998
+    </a>
+    </td>
+  </tr>`;
+}
+
+function displayTeams(teams) {
+  const teamsHTML = teams.map(getTeamHTML);
+
+  // afisare
+  $("table tbody").innerHTML = teamsHTML.join("");
 }
 
 function loadTeams() {
   fetch("http://localhost:3000/teams-json")
-    .then((list) => list.json())
-    .then((teams) => updateTable(teams));
-}
-
-function getTeamHtml(team, index) {
-  return `
-  <tr>
-      <td>${team.promotion}</td>
-      <td> ${team.members}</td>
-      <td> ${team.name}</td>
-      <td><a href="${team.url}">Visit </a></td>
-      <td>
-          <div class="buttonCell">
-              <div data-index="${index}" class="edit"></div>
-              <div data-index="${index}" class="delete">&#9998</div>
-          </div>                      
-      </td>
-  </tr>
-  `;
-}
-
-function updateTable(teams) {
-  const teamsHTML = teams.map((team, index) => getTeamHtml(team, index));
-
-  $(".tableBody table tbody").innerHTML = teamsHTML.join("");
+    .then((r) => r.json())
+    .then((teams) => {
+      allTeams = teams;
+      displayTeams(teams);
+    });
 }
 
 function createTeamRequest(team) {
@@ -45,33 +45,81 @@ function createTeamRequest(team) {
   });
 }
 
+function removeTeamRequest(id) {
+  return fetch("http://localhost:3000/teams-json/delete", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id: id }),
+  }).then((r) => r.json());
+}
+
+function getFormValues() {
+  const promotion = $("input[name=promotion]").value;
+  const members = $("input[name=members]").value;
+  const name = $("input[name=name]").value;
+  const url = $("input[name=url]").value;
+
+  const team = {
+    promotion: promotion,
+    members: members,
+    name: name,
+    url: url,
+  };
+  return team;
+}
+
+function setFormValues(team) {
+  $("input[name=promotion]").value = team.promotion;
+  $("input[name=members]").value = team.members;
+  $("input[name=name]").value = team.name;
+  $("input[name=url]").value = team.url;
+}
+
 function submitForm(e) {
   e.preventDefault();
 
-  const team = {
-    promotion: "",
-    members: "",
-    name: "",
-    url: "",
-  };
+  const team = getFormValues();
 
-  for (let key in team) {
-    team[key] = $(`input[name=${key}]`).value;
-  }
+  if (editId) {
+    console.warn("pls edit id", editId, team);
+  } else
+    createTeamRequest(team)
+      .then((r) => r.json())
+      .then((status) => {
+        console.warn("status", status);
+        if (status.success) {
+          location.reload();
+        }
+      });
+}
 
-  createTeamRequest(team)
-    .then((r) => r.json())
-    .then((status) => {
-      console.log(status);
-      if (status.success) {
-        //location.reload();
-        loadTeams();
-      }
-    });
+function startEditTeam(id) {
+  const team = allTeams.find((team) => team.id === id);
+  console.warn("edit", id, team);
+  setFormValues(team);
+  editId = id;
 }
 
 function initEvents() {
-  $("#editForm").addEventListener("submit", submitForm);
+  const form = document.getElementById("editForm");
+  form.addEventListener("submit", submitForm);
+
+  form.querySelector("tbody").addEventListener("click", (e) => {
+    if (e.target.matches("a.delete-btn")) {
+      const id = e.target.getAttribute("data-id");
+      removeTeamRequest(id).then((status) => {
+        console.warn("status", status);
+        if (status.success) {
+          loadTeams();
+        }
+      });
+    } else if (e.target.matches("a.edit-btn")) {
+      const id = e.target.getAttribute("data-id");
+      startEditTeam(id);
+    }
+  });
 }
 
 loadTeams();
