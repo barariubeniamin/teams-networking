@@ -1,3 +1,6 @@
+let allTeams = [];
+let editId;
+
 function $(selector) {
   return document.querySelector(selector);
 }
